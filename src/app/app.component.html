@@ -1,0 +1,100 @@
+<input type="text" (input)="onInput($event)">
+
+<button (click)="value()">Search</button>
+<br>
+{{searchValue}}
+<hr>
+
+<button type="submit" (click)="register()">REGISTER</button>
+<button type="submit" (click)="login()">LOGIN</button>
+<button type="submit" (click)="addHouse()">Create House</button>
+
+<br>
+<br>
+
+<form *ngIf="isRegClick" (ngSubmit)="registerUser(registerForm)" #registerForm="ngForm">
+    <label [ngStyle]=" {color: name.invalid ? 'IndianRed' : 'black'} "> Name: </label>
+        <input
+            type="text"
+            name="name"
+            placeholder="name"
+            [(ngModel)]="createUser.name"
+            #name="ngModel"
+            required>
+    <label [ngStyle]=" {color: email.invalid ? 'IndianRed' : 'black'} "> Email: </label>
+        <input
+            type="email"
+            name="email"
+            placeholder="email"
+            [(ngModel)]="createUser.email"
+            #email="ngModel"
+            required>
+    <label [ngStyle]=" {color: password.invalid ? 'IndianRed' : 'black'} "> Password: </label>
+        <input
+            type="password"
+            name="password"
+            placeholder="password"
+            [(ngModel)]="createUser.password"
+            #password="ngModel"
+            required
+            minlength="5">
+    <button [disabled]="!registerForm.valid"> Submit</button>
+</form>
+
+<form *ngIf="isLogClick" (ngSubmit)="loginUser()">
+    <input
+        type="email"
+        name="email"
+        placeholder="email"
+        [(ngModel)]="auth.email">
+    <input
+        type="password"
+        name="password"
+        placeholder="password"
+        [(ngModel)]="auth.password">
+    <button>Submit</button>
+</form>
+
+<form *ngIf="isHouseClick" (ngSubmit)="houseToCreate(houseReg)" #houseReg="ngForm">
+    <label [ngStyle]="{ color: city.invalid ? 'IndianRed' : 'black'}"> City: </label>
+        <input
+            type="text"
+            placeholder="city"
+            [(ngModel)]="createHouse.city"
+            #city="ngModel"
+            required>
+    <label [ngStyle]="{ color: street.invalid ? 'IndianRed' : 'black'}"> Street: </label>
+        <input
+            type="text"
+            placeholder="street"
+            [(ngModel)]="createHouse.street"
+            #street="ngModel"
+            required>
+    <label [ngStyle]="{ color: price.invalid ? 'IndianRed' : 'black'}"> Price: </label>
+        <input
+            type="text"
+            placeholder="price"
+            [(ngModel)]="createHouse.price"
+            #price="ngModel"
+            required>
+    <button [disabled]="!houseReg.valid">Submit</button>
+</form>
+
+<hr>
+<br>
+<br>
+
+<div *ngFor="let house of houses">
+    City: {{house.city}}
+    <br>
+    Price: {{house.price}}
+    <br>
+<div *ngIf="showedHouseIndex === house.id">
+    Street: {{house.street}}
+    <br>
+    Owner: {{house.owner.name}} {{house.owner.surname}}
+</div>
+  <button (click)="showFull(house.id)">show full info</button>
+  <br>
+  <br>
+</div>
